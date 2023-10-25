@@ -5,8 +5,87 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a7463bff-b604-41bf-9a61-5b4f2e53bef0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/Account.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/AccountDatabase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/Campus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/Checking.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/CollegeChecking.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/Date.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/MoneyMarket.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/Profile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/Savings.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/allclasses-index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/allpackages-index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/constant-values.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/copy.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/element-list" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/help-doc.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index-files/index-1.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index-files/index-10.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index-files/index-11.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index-files/index-12.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index-files/index-13.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index-files/index-14.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index-files/index-15.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index-files/index-16.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index-files/index-17.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index-files/index-18.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index-files/index-19.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index-files/index-2.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index-files/index-20.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index-files/index-21.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index-files/index-22.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index-files/index-23.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index-files/index-3.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index-files/index-4.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index-files/index-5.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index-files/index-6.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index-files/index-7.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index-files/index-8.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index-files/index-9.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/legal/COPYRIGHT" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/legal/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/legal/jquery.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/legal/jqueryUI.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/manager/Account.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/manager/AccountDatabase.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/manager/AccountDatabaseTest.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/manager/Campus.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/manager/Checking.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/manager/CollegeChecking.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/manager/Date.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/manager/DateTest.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/manager/MoneyMarket.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/manager/Profile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/manager/RunProject2.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/manager/Savings.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/manager/TransactionManager.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/manager/package-summary.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/manager/package-tree.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/member-search-index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/module-search-index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/overview-tree.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/package-search-index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/resources/glass.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/resources/x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/script-dir/jquery-3.6.1.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/script-dir/jquery-ui.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/script-dir/jquery-ui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/script.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/search-page.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/search.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/search.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/stylesheet.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/tag-search-index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manager/doc/type-search-index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cs213project3/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cs213project3/hello-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cs213project3/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cs213project3/TransactionManagerMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cs213project3/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cs213project3/TransactionManagerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cs213project3/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/cs213project3/TransactionManagerView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,20 +95,25 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2XAP4IgXpla7jRH31zchIJU5PcO" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main"
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/zderi/Documents/Fall 2023/Software Methodology/cs213-project-3"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -42,5 +126,8 @@
       <updated>1698068722174</updated>
     </task>
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
