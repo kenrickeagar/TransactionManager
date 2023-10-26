@@ -1,7 +1,7 @@
 # cs213-project-3
-##Bank Transaction Manager
+## Bank Transaction Manager
 
-###Features Include:
+### Features Include:
 - Opening an account of four different types
 - Closing an account
 - Deposits
