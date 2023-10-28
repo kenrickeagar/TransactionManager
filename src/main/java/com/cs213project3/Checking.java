@@ -1,4 +1,4 @@
-package com.manager;
+package com.cs213project3;
 
 /**
  * Extend the account class and define Checking subclass.

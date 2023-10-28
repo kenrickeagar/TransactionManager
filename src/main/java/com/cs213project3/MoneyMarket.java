@@ -1,4 +1,4 @@
-package com.manager;
+package com.cs213project3;
 
 /**
  * Extend the savings class and define MoneyMarket subclass.
