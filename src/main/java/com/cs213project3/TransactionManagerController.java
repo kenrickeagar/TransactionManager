@@ -10,18 +10,25 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.DatePicker;
 import javafx.event.ActionEvent;
 
+//assuming database has to be created in this file
 public class TransactionManagerController {
     @FXML
     private Label welcomeText;
-    private TextField firstNameText, lastNameText, amountText
+    @FXML
+    private TextField firstNameText, lastNameText, amountText;
+    @FXML
+    private DatePicker datepicker;
+    private Database database = new Database();
 
 
     @FXML
     void openAccountButton(ActionEvent event){
         String fname = firstNameText.getText();
         String lname = lastNameText.getText();
+        Date dob = new Date(datePicker.getValue().toString());
         int amount = 0;
         try{
             amount = Integer.parseInt(amountText.getText());
@@ -33,6 +40,16 @@ public class TransactionManagerController {
             alert.setContentText("Please enter amount as a double.");
             alert.showAndWait();
         }
+
+        //will add more later
+
+    }
+
+    @FXML
+    void closeAccountButton(ActionEvent event){
+        String fname = firstNameText.getText();
+        String lname = lastNameText.getText();
+
 
         //will add more later
 

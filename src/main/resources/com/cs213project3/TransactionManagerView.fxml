@@ -49,7 +49,7 @@
                                     <RadioButton mnemonicParsing="false" text="Camden" toggleGroup="$campus" GridPane.rowIndex="2" />
                                  </children>
                               </GridPane>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Close" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+                              <Button mnemonicParsing="false" onAction="#closeAccountButton" prefHeight="25.0" prefWidth="90.0" text="Close" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="4">
                                  <GridPane.margin>
                                     <Insets />
                                  </GridPane.margin>
@@ -92,7 +92,7 @@
                               <TextField fx:id="firstNameText" GridPane.columnIndex="1" />
                               <TextField fx:id="lastNameText" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <DatePicker prefHeight="25.0" prefWidth="148.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Open" textAlignment="CENTER" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#openAccountButton" prefHeight="25.0" prefWidth="115.0" text="Open" textAlignment="CENTER" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                                  <GridPane.margin>
                                     <Insets left="10.0" />
                                  </GridPane.margin>
