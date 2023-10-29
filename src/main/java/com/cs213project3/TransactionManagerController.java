@@ -70,7 +70,12 @@ public class TransactionManagerController {
         }
         return true;
     }
-
+    @FXML private boolean campusSelected(ActionEvent event){
+        if(!newarkButton.isSelected() && !camdenButton.isSelected() && !nbButton.isSelected()){
+            return false;
+        }
+        return true;
+    }
 
     private boolean containsSpecialChars(String input){
         int capitalLowerBound = 65; // based off ascii capital letters have val of 65-90
@@ -89,28 +94,31 @@ public class TransactionManagerController {
 
     }
     @FXML
-    private String exceptionFinder(ActionEvent event){
+    private String exceptionFinder(ActionEvent event, boolean whichMethod){ //true = for open/close false = for withdrawal/deposit (needed because one requires campus specified and other does not)
         String exception = "";
         if(firstNameText.getText().isEmpty()){
-            exception = "Missing First Name: ";
+            exception = "Missing First Name:";
         }
         if(lastNameText.getText().isEmpty()){
             exception+= " Missing Last Name: ";
         }
         if(containsSpecialChars(firstNameText.getText()) && !firstNameText.getText().isEmpty()){
-            exception+= "First Name Cannot Contain Special Characters Or Spaces: ";
+            exception+= " First Name Cannot Contain Special Characters Or Spaces:";
         }
         if(containsSpecialChars(lastNameText.getText()) && !lastNameText.getText().isEmpty()){
-            exception+= "Last Name Cannot Contain Special Characters Or Spaces: ";
+            exception+= " Last Name Cannot Contain Special Characters Or Spaces:";
         }
         if(datepicker.getValue()==null){
-            exception += " Missing Date of Birth: ";
+            exception += " Missing Date of Birth:";
         }
         if(amountText.getText().isEmpty()){
-            exception+= " Missing Amount: ";
+            exception+= " Missing Amount:";
         }
         if(!accountSelected(event)){
             exception += " No Account Type Selected: ";
+        }
+        if(!campusSelected(event) && ccButton.isSelected() && whichMethod){
+            exception+= " No Campus Selected:";
         }
         try{
             double amount = Double.parseDouble(amountText.getText());
@@ -148,7 +156,8 @@ private Account makeAccount(Profile holder, double balance){
 
     @FXML
     void openAccountButton(ActionEvent event){
-        String exceptionA = exceptionFinder(event);
+        boolean whichMethod = true;
+        String exceptionA = exceptionFinder(event,whichMethod);
         if(!exceptionA.equals("")){
             messageArea.setText(exceptionA);
             return;
@@ -156,45 +165,78 @@ private Account makeAccount(Profile holder, double balance){
         String fname = firstNameText.getText();
         String lname = lastNameText.getText();
         String[] dateinfo = datepicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).split("-");
-        int month = Integer.parseInt(dateinfo[1]);
-        int day = Integer.parseInt(dateinfo[2]);
-        int year = Integer.parseInt(dateinfo[0]);
+        int month = Integer.parseInt(dateinfo[0]);
+        int day = Integer.parseInt(dateinfo[1]);
+        int year = Integer.parseInt(dateinfo[2]);
         Date dob = new Date(month,day,year);
+        String dateS = dob.toString();
+        Profile holder = new Profile(fname,lname,dob);
+        double amount = Double.parseDouble(amountText.getText());
+        Account newAcc = makeAccount(holder,amount);
+        String accountType = newAcc.accountType();
+        if (newAcc.getHolder().getDob().futureOrToday()) {
+            messageArea.setText("DOB invalid: " + dateS  + " cannot be today or a future day.");
+            return;
+        }
+        if (newAcc.getHolder().getDob().underSixteen()) {
+            messageArea.setText("DOB invalid: " + dateS  + " under 16.");
+            return;
+        }
+        if (newAcc.getHolder().getDob().overTwentyFour() && accountType.equals("CC")) {
+            messageArea.setText ("DOB invalid: " + dateS  + " over 24.");
+            return;
+        }
+        boolean didWeOpen = database.open(newAcc);
+        String returnString = fname + " " + lname + " " + dateS + " " + "(" + accountType + ")";
+        if(didWeOpen) {
+            messageArea.setText(returnString + " " + "Opened."); // for testing purposes
+            return;
+        }
+        messageArea.setText(returnString + " already exists in database");
+        //will add exception handling later
+    }
+
+    @FXML
+    void closeAccountButton(ActionEvent event){
+        boolean whichMethod = true;
+        String exceptionA = exceptionFinder(event, whichMethod);
+        if(!exceptionA.equals("")){
+            messageArea.setText(exceptionA);
+            return;
+        }
+        String fname = firstNameText.getText();
+        String lname = lastNameText.getText();
+        String[] dateinfo = datepicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).split("-");
+        int month = Integer.parseInt(dateinfo[0]);
+        int day = Integer.parseInt(dateinfo[1]);
+        int year = Integer.parseInt(dateinfo[2]);
+        Date dob = new Date(month,day,year);
+        String dateS = dob.toString();
 
         Profile holder = new Profile(fname,lname,dob);
         double amount = Double.parseDouble(amountText.getText());
-
-        database.open(makeAccount(holder,amount));
-        messageArea.setText("Successfully Opened Account"); // for testing purposes
+        Account newAcc = makeAccount(holder,amount);
+        String accountType = newAcc.accountType();
+        boolean didWeClose = database.close(newAcc);
+        String returnString = fname + " " + lname + " " + dateS + " " + "(" + accountType + ")";
+        if(!didWeClose){
+            messageArea.setText(returnString + " " + "is not in the database.");
+            return;
+        }
+        messageArea.setText(returnString+ " "+ "has been closed."); // for testing purposes
         //will add exception handling later
 
     }
 
     @FXML
-    void closeAccountButton(ActionEvent event){
-        String exceptionA = exceptionFinder(event);
-        if(!exceptionA.equals("")){
-            messageArea.setText(exceptionA);
-            return;
-        }
-        String fname = firstNameText.getText();
-        String lname = lastNameText.getText();
-        String[] dateinfo = datepicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).split("-");
-        int month = Integer.parseInt(dateinfo[1]);
-        int day = Integer.parseInt(dateinfo[2]);
-        int year = Integer.parseInt(dateinfo[0]);
-        Date dob = new Date(month,day,year);
+    void depositButton(ActionEvent event){
 
-        Profile holder = new Profile(fname,lname,dob);
-        double amount = Double.parseDouble(amountText.getText());
 
-        boolean didWeClose = database.close(makeAccount(holder,amount));
-        if(!didWeClose){
-            messageArea.setText("Account Does Not Exist");
-            return;
-        }
-        messageArea.setText("Successfully Closed Account"); // for testing purposes
         //will add exception handling later
+    }
+
+    @FXML
+    void withdrawalButton(ActionEvent event){
 
     }
     @FXML
