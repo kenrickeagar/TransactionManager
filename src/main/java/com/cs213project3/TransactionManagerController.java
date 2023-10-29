@@ -1,17 +1,14 @@
 package com.cs213project3;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.DatePicker;
 import javafx.event.ActionEvent;
+
+import java.time.format.DateTimeFormatter;
 
 //assuming database has to be created in this file
 public class TransactionManagerController {
@@ -21,27 +18,53 @@ public class TransactionManagerController {
     private TextField firstNameText, lastNameText, amountText;
     @FXML
     private DatePicker datepicker;
-    private Database database = new Database();
+    @FXML
+    private RadioButton checkingButton,savingsButton,mmButton,ccButton,nbButton,camdenButton,newarkButton;
+    @FXML
+    private CheckBox loyalBox;
+    @FXML private TextArea messageArea;
+    private AccountDatabase database = new AccountDatabase();
 
+
+@FXML
+private Account makeAccount(Profile holder, double balance){
+
+    if(checkingButton.isSelected()){
+        return new Checking(holder,balance);
+    }
+    if(savingsButton.isSelected()){
+        boolean loyal = loyalBox.isSelected();
+        return new Savings(holder, balance, loyal);
+    }
+    if(mmButton.isSelected()){
+        return new MoneyMarket(holder,balance,0);
+    }
+
+    if(nbButton.isSelected()){
+        return new CollegeChecking(holder,balance, Campus.NEW_BRUNSWICK);
+    }
+    if(newarkButton.isSelected()){
+        return new CollegeChecking(holder,balance, Campus.NEWARK);
+    }
+        return new CollegeChecking(holder,balance, Campus.CAMDEN);
+}
 
     @FXML
     void openAccountButton(ActionEvent event){
         String fname = firstNameText.getText();
         String lname = lastNameText.getText();
-        Date dob = new Date(datePicker.getValue().toString());
-        int amount = 0;
-        try{
-            amount = Integer.parseInt(amountText.getText());
-        }
-        catch(NumberFormatException e){
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Invalid Data");
-            alert.setHeaderText("Non-numeric data has been entered.");
-            alert.setContentText("Please enter amount as a double.");
-            alert.showAndWait();
-        }
+        String[] dateinfo = datepicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).split("-");
+        int month = Integer.parseInt(dateinfo[1]);
+        int day = Integer.parseInt(dateinfo[2]);
+        int year = Integer.parseInt(dateinfo[0]);
+        Date dob = new Date(month,day,year);
 
-        //will add more later
+        Profile holder = new Profile(fname,lname,dob);
+        double amount = Double.parseDouble(amountText.getText());
+
+        database.open(makeAccount(holder,amount));
+        messageArea.setText("Successfully Opened Account"); // for testing purposes
+        //will add exception handling later
 
     }
 
@@ -49,9 +72,22 @@ public class TransactionManagerController {
     void closeAccountButton(ActionEvent event){
         String fname = firstNameText.getText();
         String lname = lastNameText.getText();
+        String[] dateinfo = datepicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).split("-");
+        int month = Integer.parseInt(dateinfo[1]);
+        int day = Integer.parseInt(dateinfo[2]);
+        int year = Integer.parseInt(dateinfo[0]);
+        Date dob = new Date(month,day,year);
 
+        Profile holder = new Profile(fname,lname,dob);
+        double amount = Double.parseDouble(amountText.getText());
 
-        //will add more later
+        boolean didWeClose = database.close(makeAccount(holder,amount));
+        if(!didWeClose){
+            messageArea.setText("Account Does Not Exist");
+            return;
+        }
+        messageArea.setText("Successfully Closed Account"); // for testing purposes
+        //will add exception handling later
 
     }
     @FXML
