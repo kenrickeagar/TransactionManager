@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="com.cs213project3.TransactionManagerController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cs213project3.TransactionManagerController">
    <top>
       <TabPane prefHeight="669.0" prefWidth="722.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -39,14 +39,14 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <CheckBox mnemonicParsing="false" text="loyal customer" GridPane.rowIndex="3" />
-                                    <RadioButton mnemonicParsing="false" text="New Brunswick">
+                                    <CheckBox fx:id="loyalBox" mnemonicParsing="false" text="loyal customer" GridPane.rowIndex="3" />
+                                    <RadioButton fx:id="nbButton" mnemonicParsing="false" text="New Brunswick">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="campus" />
                                        </toggleGroup>
                                     </RadioButton>
-                                    <RadioButton mnemonicParsing="false" text="Newark" toggleGroup="$campus" GridPane.rowIndex="1" />
-                                    <RadioButton mnemonicParsing="false" text="Camden" toggleGroup="$campus" GridPane.rowIndex="2" />
+                                    <RadioButton fx:id="newarkButton" mnemonicParsing="false" text="Newark" toggleGroup="$campus" GridPane.rowIndex="1" />
+                                    <RadioButton fx:id="camdenButton" mnemonicParsing="false" text="Camden" toggleGroup="$campus" GridPane.rowIndex="2" />
                                  </children>
                               </GridPane>
                               <Button mnemonicParsing="false" onAction="#closeAccountButton" prefHeight="25.0" prefWidth="90.0" text="Close" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="4">
@@ -64,14 +64,14 @@
                                   <RowConstraints maxHeight="39.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <RadioButton mnemonicParsing="false" text="Checking">
+                                    <RadioButton fx:id="checkingButton" mnemonicParsing="false" text="Checking">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="open" />
                                        </toggleGroup>
                                     </RadioButton>
-                                    <RadioButton mnemonicParsing="false" text="Money Market" toggleGroup="$open" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <RadioButton mnemonicParsing="false" text="College Checking" toggleGroup="$open" GridPane.columnIndex="1" />
-                                    <RadioButton mnemonicParsing="false" text="Savings" toggleGroup="$open" GridPane.rowIndex="1" />
+                                    <RadioButton fx:id="mmButton" mnemonicParsing="false" text="Money Market" toggleGroup="$open" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <RadioButton fx:id="ccButton" mnemonicParsing="false" text="College Checking" toggleGroup="$open" GridPane.columnIndex="1" />
+                                    <RadioButton fx:id="savingsButton" mnemonicParsing="false" text="Savings" toggleGroup="$open" GridPane.rowIndex="1" />
                                  </children>
                               </GridPane>
                               <Label alignment="CENTER_RIGHT" prefHeight="55.0" prefWidth="200.0" text="Last Name" GridPane.rowIndex="1">
@@ -91,7 +91,7 @@
                               </Label>
                               <TextField fx:id="firstNameText" GridPane.columnIndex="1" />
                               <TextField fx:id="lastNameText" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <DatePicker prefHeight="25.0" prefWidth="148.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <DatePicker fx:id="datepicker" prefHeight="25.0" prefWidth="148.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#openAccountButton" prefHeight="25.0" prefWidth="115.0" text="Open" textAlignment="CENTER" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                                  <GridPane.margin>
                                     <Insets left="10.0" />
@@ -215,4 +215,12 @@
    </top>
    <left>
    </left>
+   <bottom>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextArea fx:id="messageArea" editable="false" prefHeight="200.0" prefWidth="722.0" />
+         </children>
+      </AnchorPane>
+   </bottom>
 </BorderPane>
+
