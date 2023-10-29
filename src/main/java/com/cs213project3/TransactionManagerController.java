@@ -94,7 +94,7 @@ public class TransactionManagerController {
 
     }
     @FXML
-    private String exceptionFinder(ActionEvent event, boolean whichMethod){ //true = for open/close false = for withdrawal/deposit (needed because one requires campus specified and other does not)
+    private String exceptionFinder(ActionEvent event){ //true = for open/close false = for withdrawal/deposit (needed because one requires campus specified and other does not)
         String exception = "";
         if(firstNameText.getText().isEmpty()){
             exception = "Missing First Name:";
@@ -117,7 +117,7 @@ public class TransactionManagerController {
         if(!accountSelected(event)){
             exception += " No Account Type Selected: ";
         }
-        if(!campusSelected(event) && ccButton.isSelected() && whichMethod){
+        if(!campusSelected(event) && ccButton.isSelected()){
             exception+= " No Campus Selected:";
         }
         try{
@@ -156,18 +156,15 @@ private Account makeAccount(Profile holder, double balance){
 
     @FXML
     void openAccountButton(ActionEvent event){
-        boolean whichMethod = true;
-        String exceptionA = exceptionFinder(event,whichMethod);
+
+        String exceptionA = exceptionFinder(event);
         if(!exceptionA.equals("")){
             messageArea.setText(exceptionA);
             return;
         }
-        String fname = firstNameText.getText();
-        String lname = lastNameText.getText();
+        String fname = firstNameText.getText(),lname = lastNameText.getText();
         String[] dateinfo = datepicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).split("-");
-        int month = Integer.parseInt(dateinfo[0]);
-        int day = Integer.parseInt(dateinfo[1]);
-        int year = Integer.parseInt(dateinfo[2]);
+        int month = Integer.parseInt(dateinfo[0]), day = Integer.parseInt(dateinfo[1]),year = Integer.parseInt(dateinfo[2]);
         Date dob = new Date(month,day,year);
         String dateS = dob.toString();
         Profile holder = new Profile(fname,lname,dob);
@@ -193,26 +190,22 @@ private Account makeAccount(Profile holder, double balance){
             return;
         }
         messageArea.setText(returnString + " already exists in database");
-        //will add exception handling later
+
     }
 
     @FXML
     void closeAccountButton(ActionEvent event){
-        boolean whichMethod = true;
-        String exceptionA = exceptionFinder(event, whichMethod);
+
+        String exceptionA = exceptionFinder(event);
         if(!exceptionA.equals("")){
             messageArea.setText(exceptionA);
             return;
         }
-        String fname = firstNameText.getText();
-        String lname = lastNameText.getText();
+        String fname = firstNameText.getText(), lname = lastNameText.getText();
         String[] dateinfo = datepicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).split("-");
-        int month = Integer.parseInt(dateinfo[0]);
-        int day = Integer.parseInt(dateinfo[1]);
-        int year = Integer.parseInt(dateinfo[2]);
+        int month = Integer.parseInt(dateinfo[0]), day = Integer.parseInt(dateinfo[1]), year = Integer.parseInt(dateinfo[2]);
         Date dob = new Date(month,day,year);
         String dateS = dob.toString();
-
         Profile holder = new Profile(fname,lname,dob);
         double amount = Double.parseDouble(amountText.getText());
         Account newAcc = makeAccount(holder,amount);
@@ -238,6 +231,26 @@ private Account makeAccount(Profile holder, double balance){
     @FXML
     void withdrawalButton(ActionEvent event){
 
+    }
+
+    @FXML
+    void printFeesButton(ActionEvent event){
+//display sorted print fees
+    }
+
+    @FXML
+    void printSortedButton(ActionEvent event){
+//display sorted by accounts to textarea
+    }
+
+    @FXML
+    void printUpdatedBalanceButton(ActionEvent event){
+//display updated balance to textArea
+    }
+
+    @FXML
+    void loadFromFileButton(ActionEvent event){
+//method to process commands from text file (basically shove the entire original transactionmanager stuff in here)
     }
     @FXML
     protected void onHelloButtonClick() {
