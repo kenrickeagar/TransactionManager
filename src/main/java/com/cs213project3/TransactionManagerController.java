@@ -8,6 +8,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.scene.control.Alert.AlertType;
 import javafx.event.ActionEvent;
 
+import java.lang.module.FindException;
 import java.time.format.DateTimeFormatter;
 
 //assuming database has to be created in this file
@@ -24,6 +25,102 @@ public class TransactionManagerController {
     private CheckBox loyalBox;
     @FXML private TextArea messageArea;
     private AccountDatabase database = new AccountDatabase();
+
+
+
+    @FXML
+    void ToggleAllCampusButtons(ActionEvent event, boolean toggle){
+    if(!toggle) { //toggle = true enable them
+        nbButton.setDisable(true);
+        newarkButton.setDisable(true);
+        camdenButton.setDisable(true);
+        return;
+    }
+    nbButton.setDisable(false);
+    newarkButton.setDisable(false);
+    camdenButton.setDisable(false);
+
+}
+    @FXML
+    void disableAccountButtons(ActionEvent event){
+        if(checkingButton.isSelected()){
+           ToggleAllCampusButtons(event,false);
+            loyalBox.setDisable(true);
+        }
+        if(savingsButton.isSelected()){
+            ToggleAllCampusButtons(event,false);
+            loyalBox.setDisable(false);
+        }
+        if(mmButton.isSelected()){
+            ToggleAllCampusButtons(event,false);
+            loyalBox.setDisable(true);
+        }
+        if(ccButton.isSelected()){
+            ToggleAllCampusButtons(event,true);
+            loyalBox.setDisable(true);
+        }
+    }
+
+    @FXML
+    private boolean accountSelected(ActionEvent event){
+        if(!mmButton.isSelected() && !ccButton.isSelected()){
+            if(!checkingButton.isSelected() && !savingsButton.isSelected()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    private boolean containsSpecialChars(String input){
+        int capitalLowerBound = 65; // based off ascii capital letters have val of 65-90
+        int capitalUpperBound = 90;
+        int lowerCaseLowerBound = 97; // ascii lower case letters have val of 97-122
+        int lowerCaseUpperBound = 122;
+        char[] array = input.toCharArray();
+        for(int i = 0; i<array.length; i++){
+            int temp = (int)array[i]; //getting ascii
+            if((temp<65 || temp>90) && (temp<97 || temp >122)){ //if its in range theres no special characters
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+    @FXML
+    private String exceptionFinder(ActionEvent event){
+        String exception = "";
+        if(firstNameText.getText().isEmpty()){
+            exception = "Missing First Name: ";
+        }
+        if(lastNameText.getText().isEmpty()){
+            exception+= " Missing Last Name: ";
+        }
+        if(containsSpecialChars(firstNameText.getText()) && !firstNameText.getText().isEmpty()){
+            exception+= "First Name Cannot Contain Special Characters Or Spaces: ";
+        }
+        if(containsSpecialChars(lastNameText.getText()) && !lastNameText.getText().isEmpty()){
+            exception+= "Last Name Cannot Contain Special Characters Or Spaces: ";
+        }
+        if(datepicker.getValue()==null){
+            exception += " Missing Date of Birth: ";
+        }
+        if(amountText.getText().isEmpty()){
+            exception+= " Missing Amount: ";
+        }
+        if(!accountSelected(event)){
+            exception += " No Account Type Selected: ";
+        }
+        try{
+            double amount = Double.parseDouble(amountText.getText());
+        }
+        catch(NumberFormatException e){
+            exception+= " Invalid Amount Type:";
+        }
+        return exception;
+    }
+
 
 
 @FXML
@@ -51,6 +148,11 @@ private Account makeAccount(Profile holder, double balance){
 
     @FXML
     void openAccountButton(ActionEvent event){
+        String exceptionA = exceptionFinder(event);
+        if(!exceptionA.equals("")){
+            messageArea.setText(exceptionA);
+            return;
+        }
         String fname = firstNameText.getText();
         String lname = lastNameText.getText();
         String[] dateinfo = datepicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).split("-");
@@ -70,6 +172,11 @@ private Account makeAccount(Profile holder, double balance){
 
     @FXML
     void closeAccountButton(ActionEvent event){
+        String exceptionA = exceptionFinder(event);
+        if(!exceptionA.equals("")){
+            messageArea.setText(exceptionA);
+            return;
+        }
         String fname = firstNameText.getText();
         String lname = lastNameText.getText();
         String[] dateinfo = datepicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).split("-");

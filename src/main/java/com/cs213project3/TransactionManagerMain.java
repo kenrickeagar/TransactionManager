@@ -11,7 +11,8 @@ public class TransactionManagerMain extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(TransactionManagerMain.class.getResource("TransactionManagerView.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 700, 800);
+        Scene scene = new Scene(fxmlLoader.load(), 722, 800);
+        stage.setResizable(false);
         stage.setTitle("Transaction Manager");
         stage.setScene(scene);
         stage.show();
