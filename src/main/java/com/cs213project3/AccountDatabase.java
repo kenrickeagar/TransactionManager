@@ -251,6 +251,22 @@ public class AccountDatabase {
         System.out.println("* end of list.");
     }
 
+    public void sortAccounts(){
+        if (this.numAcct > 1) { // Insertion sort from: https://www.geeksforgeeks.org/insertion-sort/
+            for (int i = 1; i < this.numAcct; ++i) {
+
+                Account account = this.accounts[i];
+                int j = i - 1;
+
+                while (j >= 0 && this.accounts[j].compareTo(account) > 0) {
+                    this.accounts[j + 1] = this.accounts[j];
+                    j = j - 1;
+                }
+                this.accounts[j + 1] = account;
+            }
+        }
+    }
+
     /**
      * Prints the accounts in order with respect to fees and interests.
      */
@@ -300,5 +316,20 @@ public class AccountDatabase {
         }
 
         System.out.println("* end of list.");
+    }
+
+    public void sortByUpdateBalances(){
+        for (int i = 0; i < this.numAcct; i++) {
+            Account account = this.accounts[i];
+            double monthlyInterest = (account.getBalance() * account.monthlyInterest() / 12);
+            double balance = account.getBalance() + monthlyInterest - account.monthlyFee();
+            //balance = roundDouble(balance);
+            account.setBalance(balance);
+        }
+    }
+
+
+    public Account getAccount(int index){
+        return accounts[index];
     }
 }

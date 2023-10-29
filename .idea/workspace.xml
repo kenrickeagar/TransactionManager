@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a7463bff-b604-41bf-9a61-5b4f2e53bef0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/AccountDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cs213project3/AccountDatabase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/TransactionManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cs213project3/TransactionManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/cs213project3/TransactionManagerView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/cs213project3/TransactionManagerView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

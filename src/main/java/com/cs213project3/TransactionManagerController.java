@@ -241,11 +241,27 @@ private Account makeAccount(Profile holder, double balance){
     @FXML
     void printSortedButton(ActionEvent event){
 //display sorted by accounts to textarea
+       database.sortAccounts();
+       String display = "*Accounts sorted by account type and profile.";
+       for(int i =0; i< database.getNumAcct(); i++){
+           String temp = database.getAccount(i).toString();
+           display += "\n" + temp;
+       }
+       display += "\n" + "* end of list.";
+       messageArea.setText(display);
     }
 
     @FXML
     void printUpdatedBalanceButton(ActionEvent event){
 //display updated balance to textArea
+        database.sortByUpdateBalances();
+        String display = "* list of accounts with fees and interests applied.";
+        for(int i =0; i< database.getNumAcct(); i++){
+            String temp = database.getAccount(i).toString();
+            display += "\n" + temp;
+        }
+        display += "\n" + "* end of list.";
+        messageArea.setText(display);
     }
 
     @FXML
