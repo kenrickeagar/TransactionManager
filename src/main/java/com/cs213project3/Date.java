@@ -111,7 +111,7 @@ public class Date implements Comparable<Date> {
     public boolean futureOrToday() {
         // create calendar object for today
         Calendar birthday = Calendar.getInstance();
-        birthday.set(this.year, this.month, this.day - 1);
+        birthday.set(this.year, this.month, this.day + 1);
 
         if (birthday.after(RIGHT_NOW)) {
             return true;

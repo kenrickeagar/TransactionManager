@@ -71,7 +71,8 @@ public class TransactionManagerController {
         }
         return true;
     }
-    @FXML private boolean campusSelected(ActionEvent event){
+    @FXML
+    private boolean campusSelected(ActionEvent event){
         if(!newarkButton.isSelected() && !camdenButton.isSelected() && !nbButton.isSelected()){
             return false;
         }
@@ -98,62 +99,69 @@ public class TransactionManagerController {
     private String exceptionFinder(ActionEvent event){ //true = for open/close false = for withdrawal/deposit (needed because one requires campus specified and other does not)
         String exception = "";
         if(firstNameText.getText().isEmpty()){
-            exception = "Missing First Name:";
+            exception = "Missing First Name\n";
         }
         if(lastNameText.getText().isEmpty()){
-            exception+= " Missing Last Name: ";
+            exception+= "Missing Last Name\n";
         }
         if(containsSpecialChars(firstNameText.getText()) && !firstNameText.getText().isEmpty()){
-            exception+= " First Name Cannot Contain Special Characters Or Spaces:";
+            exception+= "First Name Cannot Contain Special Characters Or Spaces\n";
         }
         if(containsSpecialChars(lastNameText.getText()) && !lastNameText.getText().isEmpty()){
-            exception+= " Last Name Cannot Contain Special Characters Or Spaces:";
+            exception+= "Last Name Cannot Contain Special Characters Or Spaces\n";
         }
         if(datepicker.getValue()==null){
-            exception += " Missing Date of Birth:";
+            exception += "Missing Date of Birth\n";
         }
         if(amountText.getText().isEmpty()){
-            exception+= " Missing Amount:";
+            exception+= "Missing Amount\n";
         }
         if(!accountSelected(event)){
-            exception += " No Account Type Selected: ";
+            exception += "No Account Type Selected\n";
         }
         if(!campusSelected(event) && ccButton.isSelected()){
-            exception+= " No Campus Selected:";
+            exception+= "No Campus Selected\n";
         }
         try{
             double amount = Double.parseDouble(amountText.getText());
         }
         catch(NumberFormatException e){
-            exception+= " Invalid Amount Type:";
+            exception+= "Invalid Amount Type\n";
+        }
+        double amount = Double.parseDouble(amountText.getText());
+        if (amount < 2000 && mmButton.isSelected()){
+            exception+= "Minimum of $2000 to open a Money Market account.\n";
+        }
+        if (amount <= 0) {
+            exception+= "Initial deposit cannot be 0 or negative.\n";
         }
         return exception;
     }
 
 
 
-@FXML
-private Account makeAccount(Profile holder, double balance){
+    @FXML
+    private Account makeAccount(Profile holder, double balance){
 
-    if(checkingButton.isSelected()){
-        return new Checking(holder,balance);
-    }
-    if(savingsButton.isSelected()){
-        boolean loyal = loyalBox.isSelected();
-        return new Savings(holder, balance, loyal);
-    }
-    if(mmButton.isSelected()){
-        return new MoneyMarket(holder,balance,0);
-    }
+        if(checkingButton.isSelected()){
+            return new Checking(holder,balance);
+        }
+        if(savingsButton.isSelected()){
+            boolean loyal = loyalBox.isSelected();
+            return new Savings(holder, balance, loyal);
+        }
+        if(mmButton.isSelected()){
+            return new MoneyMarket(holder,balance,0);
+        }
 
-    if(nbButton.isSelected()){
-        return new CollegeChecking(holder,balance, Campus.NEW_BRUNSWICK);
+        if(nbButton.isSelected()){
+            return new CollegeChecking(holder,balance, Campus.NEW_BRUNSWICK);
+        }
+        if(newarkButton.isSelected()){
+            return new CollegeChecking(holder,balance, Campus.NEWARK);
+        }
+            return new CollegeChecking(holder,balance, Campus.CAMDEN);
     }
-    if(newarkButton.isSelected()){
-        return new CollegeChecking(holder,balance, Campus.NEWARK);
-    }
-        return new CollegeChecking(holder,balance, Campus.CAMDEN);
-}
 
     @FXML
     void openAccountButton(ActionEvent event){
@@ -163,6 +171,7 @@ private Account makeAccount(Profile holder, double balance){
             messageArea.setText(exceptionA);
             return;
         }
+
         String fname = firstNameText.getText(),lname = lastNameText.getText();
         String[] dateinfo = datepicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).split("-");
         int month = Integer.parseInt(dateinfo[0]), day = Integer.parseInt(dateinfo[1]),year = Integer.parseInt(dateinfo[2]);
@@ -170,8 +179,10 @@ private Account makeAccount(Profile holder, double balance){
         String dateS = dob.toString();
         Profile holder = new Profile(fname,lname,dob);
         double amount = Double.parseDouble(amountText.getText());
+
         Account newAcc = makeAccount(holder,amount);
         String accountType = newAcc.accountType();
+
         if (newAcc.getHolder().getDob().futureOrToday()) {
             messageArea.setText("DOB invalid: " + dateS  + " cannot be today or a future day.");
             return;
@@ -180,7 +191,7 @@ private Account makeAccount(Profile holder, double balance){
             messageArea.setText("DOB invalid: " + dateS  + " under 16.");
             return;
         }
-        if (newAcc.getHolder().getDob().overTwentyFour() && accountType.equals("CC")) {
+        if (newAcc.getHolder().getDob().overTwentyFour() && accountType.equals("College Checking")) {
             messageArea.setText ("DOB invalid: " + dateS  + " over 24.");
             return;
         }
@@ -191,27 +202,31 @@ private Account makeAccount(Profile holder, double balance){
             return;
         }
         messageArea.setText(returnString + " already exists in database");
-
     }
 
     @FXML
     void closeAccountButton(ActionEvent event){
 
         String exceptionA = exceptionFinder(event);
+
         if(!exceptionA.equals("")){
             messageArea.setText(exceptionA);
             return;
         }
+
         String fname = firstNameText.getText(), lname = lastNameText.getText();
         String[] dateinfo = datepicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).split("-");
+
         int month = Integer.parseInt(dateinfo[0]), day = Integer.parseInt(dateinfo[1]), year = Integer.parseInt(dateinfo[2]);
         Date dob = new Date(month,day,year);
         String dateS = dob.toString();
+
         Profile holder = new Profile(fname,lname,dob);
         double amount = Double.parseDouble(amountText.getText());
         Account newAcc = makeAccount(holder,amount);
         String accountType = newAcc.accountType();
         boolean didWeClose = database.close(newAcc);
+
         String returnString = fname + " " + lname + " " + dateS + " " + "(" + accountType + ")";
         if(!didWeClose){
             messageArea.setText(returnString + " " + "is not in the database.");
@@ -242,54 +257,69 @@ private Account makeAccount(Profile holder, double balance){
 
     @FXML
     void printFeesButton(ActionEvent event){
-//display sorted print fees
-        database.sortAccounts();
-        String display = "*list of accounts with fee and monthly interest.";
-        for (int i = 0; i < database.getNumAcct(); i++) {
-            Account account = database.getAccount(i);
-            String formatFee = new DecimalFormat("#0.00").format(account.monthlyFee());
-            String monthlyFee = "::fee $" + formatFee;
-
-            double monthlyInterest = (account.getBalance() * account.monthlyInterest() / 12);
-            monthlyInterest = roundDouble(monthlyInterest);
-            String formatInterest = new DecimalFormat("#0.00").format(monthlyInterest);
-            String interest = "::monthly interest $" + formatInterest;
-            String temp = account + monthlyFee + interest;
-            display += "\n" + temp;
+        //display sorted print fees
+        if (database.getNumAcct() == 0) {
+            messageArea.setText("Account Database is empty!");
         }
-        display += "\n" + "* end of list.";
-        messageArea.setText(display);
+        else {
+            database.sortAccounts();
+            String display = "*list of accounts with fee and monthly interest.";
+            for (int i = 0; i < database.getNumAcct(); i++) {
+                Account account = database.getAccount(i);
+                String formatFee = new DecimalFormat("#0.00").format(account.monthlyFee());
+                String monthlyFee = "::fee $" + formatFee;
+
+                double monthlyInterest = (account.getBalance() * account.monthlyInterest() / 12);
+                monthlyInterest = roundDouble(monthlyInterest);
+                String formatInterest = new DecimalFormat("#0.00").format(monthlyInterest);
+                String interest = "::monthly interest $" + formatInterest;
+                String temp = account + monthlyFee + interest;
+                display += "\n" + temp;
+            }
+            display += "\n" + "* end of list.";
+            messageArea.setText(display);
+        }
     }
 
     @FXML
     void printSortedButton(ActionEvent event){
-//display sorted by accounts to textarea
-       database.sortAccounts();
-       String display = "*Accounts sorted by account type and profile.";
-       for(int i =0; i< database.getNumAcct(); i++){
-           String temp = database.getAccount(i).toString();
-           display += "\n" + temp;
-       }
-       display += "\n" + "* end of list.";
-       messageArea.setText(display);
+        //display sorted by accounts to textarea
+        if (database.getNumAcct() == 0) {
+            messageArea.setText("Account Database is empty!");
+        }
+        else {
+            database.sortAccounts();
+            String display = "*Accounts sorted by account type and profile.";
+            for(int i =0; i< database.getNumAcct(); i++){
+                String temp = database.getAccount(i).toString();
+                display += "\n" + temp;
+            }
+            display += "\n" + "* end of list.";
+            messageArea.setText(display);
+        }
     }
 
     @FXML
     void printUpdatedBalanceButton(ActionEvent event){
-//display updated balance to textArea
-        database.sortByUpdateBalances();
-        String display = "* list of accounts with fees and interests applied.";
-        for(int i =0; i< database.getNumAcct(); i++){
-            String temp = database.getAccount(i).toString();
-            display += "\n" + temp;
+        //display updated balance to textArea
+        if (database.getNumAcct() == 0) {
+            messageArea.setText("Account Database is empty!");
         }
-        display += "\n" + "* end of list.";
-        messageArea.setText(display);
+        else {
+            database.sortByUpdateBalances();
+            String display = "* list of accounts with fees and interests applied.";
+            for(int i = 0; i < database.getNumAcct(); i++){
+                String temp = database.getAccount(i).toString();
+                display += "\n" + temp;
+            }
+            display += "\n" + "* end of list.";
+            messageArea.setText(display);
+        }
     }
 
     @FXML
     void loadFromFileButton(ActionEvent event){
-//method to process commands from text file (basically shove the entire original transactionmanager stuff in here)
+    //method to process commands from text file (basically shove the entire original transaction manager stuff in here)
     }
     @FXML
     protected void onHelloButtonClick() {
