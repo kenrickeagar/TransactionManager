@@ -17,9 +17,9 @@ public class TransactionManagerController {
     @FXML
     private Label welcomeText;
     @FXML
-    private TextField firstNameText, lastNameText, amountText;
+    private TextField firstNameText, lastNameText, amountText, firstNameText2, lastNameText2, amountText2;
     @FXML
-    private DatePicker datepicker;
+    private DatePicker datepicker, datepicker2;
     @FXML
     private RadioButton checkingButton,savingsButton,mmButton,ccButton,nbButton,camdenButton,newarkButton;
     @FXML
@@ -96,7 +96,61 @@ public class TransactionManagerController {
 
     }
     @FXML
-    private String exceptionFinder(ActionEvent event){ //true = for open/close false = for withdrawal/deposit (needed because one requires campus specified and other does not)
+    private String openExceptionFinder(ActionEvent event){ //true = for open/close false = for withdrawal/deposit (needed because one requires campus specified and other does not)
+        String exception = "";
+        /*if(firstNameText.getText().isEmpty()){
+            exception = "Missing First Name\n";
+        }
+        if(lastNameText.getText().isEmpty()){
+            exception+= "Missing Last Name\n";
+        }
+        if(containsSpecialChars(firstNameText.getText()) && !firstNameText.getText().isEmpty()){
+            exception+= "First Name Cannot Contain Special Characters Or Spaces\n";
+        }
+        if(containsSpecialChars(lastNameText.getText()) && !lastNameText.getText().isEmpty()){
+            exception+= "Last Name Cannot Contain Special Characters Or Spaces\n";
+        }
+        if(datepicker.getValue()==null){
+            exception += "Missing Date of Birth\n";
+        }
+        if(amountText.getText().isEmpty()){
+            exception+= "Missing Amount\n";
+        }
+        if(!accountSelected(event)){
+            exception += "No Account Type Selected\n";
+        }*/
+        if(!campusSelected(event) && ccButton.isSelected()){
+            exception+= "No Campus Selected\n";
+        }
+        /*try{
+            double amount = Double.parseDouble(amountText.getText());
+        }
+        catch(NumberFormatException e){
+            exception+= "Invalid Amount Type\n";
+        }*/
+        double amount = Double.parseDouble(amountText.getText());
+        if (amount < 2000 && mmButton.isSelected()){
+            exception+= "Minimum of $2000 to open a Money Market account.\n";
+        }
+        if (amount <= 0) {
+            exception+= "Initial deposit cannot be 0 or negative.\n";
+        }
+        return exception;
+    }
+
+    @FXML
+    private String depositExceptionFinder(ActionEvent event) {
+        String exception = "";
+
+        double amount = Double.parseDouble(amountText.getText());
+        if (amount <= 0) {
+            exception += "Deposit - amount cannot be 0 or negative.\n";
+        }
+        return exception;
+    }
+
+    @FXML
+    private String textExceptionFinder(ActionEvent event) {
         String exception = "";
         if(firstNameText.getText().isEmpty()){
             exception = "Missing First Name\n";
@@ -119,27 +173,46 @@ public class TransactionManagerController {
         if(!accountSelected(event)){
             exception += "No Account Type Selected\n";
         }
-        if(!campusSelected(event) && ccButton.isSelected()){
-            exception+= "No Campus Selected\n";
-        }
         try{
             double amount = Double.parseDouble(amountText.getText());
         }
         catch(NumberFormatException e){
             exception+= "Invalid Amount Type\n";
         }
-        double amount = Double.parseDouble(amountText.getText());
-        if (amount < 2000 && mmButton.isSelected()){
-            exception+= "Minimum of $2000 to open a Money Market account.\n";
-        }
-        if (amount <= 0) {
-            exception+= "Initial deposit cannot be 0 or negative.\n";
-        }
         return exception;
     }
 
-
-
+    private String textExceptionFinder2(ActionEvent event) {
+        String exception = "";
+        if(firstNameText2.getText().isEmpty()){
+            exception = "Missing First Name\n";
+        }
+        if(lastNameText2.getText().isEmpty()){
+            exception+= "Missing Last Name\n";
+        }
+        if(containsSpecialChars(firstNameText2.getText()) && !firstNameText2.getText().isEmpty()){
+            exception+= "First Name Cannot Contain Special Characters Or Spaces\n";
+        }
+        if(containsSpecialChars(lastNameText2.getText()) && !lastNameText2.getText().isEmpty()){
+            exception+= "Last Name Cannot Contain Special Characters Or Spaces\n";
+        }
+        if(datepicker2.getValue() == null){
+            exception += "Missing Date of Birth\n";
+        }
+        if(amountText2.getText().isEmpty()){
+            exception+= "Missing Amount\n";
+        }
+        if(!accountSelected(event)){
+            exception += "No Account Type Selected\n";
+        }
+        try{
+            double amount = Double.parseDouble(amountText2.getText());
+        }
+        catch(NumberFormatException e){
+            exception+= "Invalid Amount Type\n";
+        }
+        return exception;
+    }
     @FXML
     private Account makeAccount(Profile holder, double balance){
 
@@ -166,13 +239,18 @@ public class TransactionManagerController {
     @FXML
     void openAccountButton(ActionEvent event){
 
-        String exceptionA = exceptionFinder(event);
+        String exceptionA = textExceptionFinder(event);
         if(!exceptionA.equals("")){
             messageArea.setText(exceptionA);
             return;
         }
+        String exceptionB = openExceptionFinder(event);
+        if(!exceptionB.equals("")){
+            messageArea.setText(exceptionB);
+            return;
+        }
 
-        String fname = firstNameText.getText(),lname = lastNameText.getText();
+        String fname = firstNameText.getText(), lname = lastNameText.getText();
         String[] dateinfo = datepicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).split("-");
         int month = Integer.parseInt(dateinfo[0]), day = Integer.parseInt(dateinfo[1]),year = Integer.parseInt(dateinfo[2]);
         Date dob = new Date(month,day,year);
@@ -207,7 +285,7 @@ public class TransactionManagerController {
     @FXML
     void closeAccountButton(ActionEvent event){
 
-        String exceptionA = exceptionFinder(event);
+        String exceptionA = textExceptionFinder(event);
 
         if(!exceptionA.equals("")){
             messageArea.setText(exceptionA);
@@ -232,14 +310,48 @@ public class TransactionManagerController {
             messageArea.setText(returnString + " " + "is not in the database.");
             return;
         }
-        messageArea.setText(returnString+ " "+ "has been closed."); // for testing purposes
+        messageArea.setText(returnString + " " + "has been closed."); // for testing purposes
         //will add exception handling later
 
     }
 
     @FXML
     void depositButton(ActionEvent event){
+        String exceptionA = textExceptionFinder2(event);
+        if(!exceptionA.equals("")){
+            messageArea.setText(exceptionA);
+            return;
+        }
+        String exceptionB = depositExceptionFinder(event);
+        if(!exceptionB.equals("")) {
+            messageArea.setText(exceptionB);
+            return;
+        }
 
+        String fname = firstNameText2.getText(), lname = lastNameText2.getText();
+        String[] dateinfo = datepicker2.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).split("-");
+        int month = Integer.parseInt(dateinfo[0]), day = Integer.parseInt(dateinfo[1]),year = Integer.parseInt(dateinfo[2]);
+        Date dob = new Date(month,day,year);
+        String dateS = dob.toString();
+        Profile holder = new Profile(fname,lname,dob);
+        double depositAmount = Double.parseDouble(amountText2.getText());
+
+        Account newAcc = makeAccount(holder,0);
+        String accountType = newAcc.accountType();
+
+        String accountString = fname + " " + lname + " " + dob + "(" + accountType + ") ";
+
+        if (database.containsProfile(newAcc)) {
+            double newBalance = database.getAccountBalance(newAcc) + depositAmount;
+            newAcc.setBalance(newBalance);
+            database.deposit(newAcc);
+        }
+
+        else {
+            messageArea.setText(accountString + "is not in database.");
+        }
+
+        messageArea.setText(accountString + "Deposit - balance updated.");
         //
         //will add exception handling later
     }
