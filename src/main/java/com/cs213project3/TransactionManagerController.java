@@ -9,6 +9,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.event.ActionEvent;
 
 import java.lang.module.FindException;
+import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 
 //assuming database has to be created in this file
@@ -224,7 +225,7 @@ private Account makeAccount(Profile holder, double balance){
     @FXML
     void depositButton(ActionEvent event){
 
-
+        //
         //will add exception handling later
     }
 
@@ -233,9 +234,31 @@ private Account makeAccount(Profile holder, double balance){
 
     }
 
+    private double roundDouble(double amount) {
+        double scale = Math.pow(10, 2);
+        amount = Math.round(amount * scale) / scale;
+        return amount;
+    }
+
     @FXML
     void printFeesButton(ActionEvent event){
 //display sorted print fees
+        database.sortAccounts();
+        String display = "*list of accounts with fee and monthly interest.";
+        for (int i = 0; i < database.getNumAcct(); i++) {
+            Account account = database.getAccount(i);
+            String formatFee = new DecimalFormat("#0.00").format(account.monthlyFee());
+            String monthlyFee = "::fee $" + formatFee;
+
+            double monthlyInterest = (account.getBalance() * account.monthlyInterest() / 12);
+            monthlyInterest = roundDouble(monthlyInterest);
+            String formatInterest = new DecimalFormat("#0.00").format(monthlyInterest);
+            String interest = "::monthly interest $" + formatInterest;
+            String temp = account + monthlyFee + interest;
+            display += "\n" + temp;
+        }
+        display += "\n" + "* end of list.";
+        messageArea.setText(display);
     }
 
     @FXML
