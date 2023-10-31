@@ -359,9 +359,7 @@ public class TransactionManagerController {
         Profile holder = new Profile(fname,lname,dob);
         double depositAmount = Double.parseDouble(amountText2.getText());
 
-
         Account newAcc = makeAccount2(holder,0);
-        System.out.println(database.getAccountBalance(newAcc));
         String accountType = newAcc.accountType();
 
         String accountString = fname + " " + lname + " " + dob + "(" + accountType + ") ";
@@ -376,13 +374,41 @@ public class TransactionManagerController {
             messageArea.setText(accountString + "is not in database.");
             return;
         }
-
         messageArea.setText(accountString + "Deposit - balance updated.");
     }
 
     @FXML
     void withdrawalButton(ActionEvent event){
 
+        String fname = firstNameText2.getText(), lname = lastNameText2.getText();
+        String[] dateinfo = datepicker2.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).split("-");
+        int month = Integer.parseInt(dateinfo[0]), day = Integer.parseInt(dateinfo[1]),year = Integer.parseInt(dateinfo[2]);
+        Date dob = new Date(month,day,year);
+        String dateS = dob.toString();
+        Profile holder = new Profile(fname,lname,dob);
+        double withdrawalAmount = Double.parseDouble(amountText2.getText());
+
+        Account newAcc = makeAccount2(holder,0);
+        String accountType = newAcc.accountType();
+
+        String accountString = fname + " " + lname + " " + dob + "(" + accountType + ") ";
+        if(!database.contains(newAcc)){
+            messageArea.setText(accountString + " " + "is not in the database.");
+            return;
+        }
+        double currentBalance = database.getAccountBalance(newAcc);
+        if(withdrawalAmount > currentBalance){
+            messageArea.setText(accountString + " " + "Withdraw - insufficient fund.");
+            return;
+        }
+        if(withdrawalAmount <= 0){
+            messageArea.setText("Withdraw - amount cannot be 0 or negative.");
+            return;
+        }
+        double newBalance = currentBalance - withdrawalAmount;
+        newAcc.setBalance(newBalance);
+        database.withdraw(newAcc);
+        messageArea.setText(accountString + " Withdraw - balance updated.");
     }
 
     private double roundDouble(double amount) {
