@@ -21,7 +21,7 @@ public class TransactionManagerController {
     @FXML
     private DatePicker datepicker, datepicker2;
     @FXML
-    private RadioButton checkingButton,savingsButton,mmButton,ccButton,nbButton,camdenButton,newarkButton;
+    private RadioButton checkingButton,savingsButton,mmButton,ccButton,nbButton,camdenButton,newarkButton, checkingButton2,savingsButton2,mmButton2,ccButton2;
     @FXML
     private CheckBox loyalBox;
     @FXML private TextArea messageArea;
@@ -236,6 +236,29 @@ public class TransactionManagerController {
             return new CollegeChecking(holder,balance, Campus.CAMDEN);
     }
 
+    /**
+     * make accounts for deposit and withdrawals
+     * @param holder
+     * @param balance
+     * @return
+     */
+    @FXML
+    private Account makeAccount2(Profile holder, double balance){
+
+        if(checkingButton2.isSelected()){
+            return new Checking(holder,balance);
+        }
+        if(savingsButton2.isSelected()){
+            boolean loyal = loyalBox.isSelected();
+            return new Savings(holder, balance, loyal);
+        }
+        if(mmButton2.isSelected()){
+            return new MoneyMarket(holder,balance,0);
+        }
+        // campus code for temp account does not change it for original
+        return new CollegeChecking(holder,balance, Campus.CAMDEN);
+    }
+
     @FXML
     void openAccountButton(ActionEvent event){
 
@@ -336,12 +359,14 @@ public class TransactionManagerController {
         Profile holder = new Profile(fname,lname,dob);
         double depositAmount = Double.parseDouble(amountText2.getText());
 
-        Account newAcc = makeAccount(holder,0);
+
+        Account newAcc = makeAccount2(holder,0);
+        System.out.println(database.getAccountBalance(newAcc));
         String accountType = newAcc.accountType();
 
         String accountString = fname + " " + lname + " " + dob + "(" + accountType + ") ";
 
-        if (database.containsProfile(newAcc)) {
+        if (database.contains(newAcc)) {
             double newBalance = database.getAccountBalance(newAcc) + depositAmount;
             newAcc.setBalance(newBalance);
             database.deposit(newAcc);
@@ -349,11 +374,10 @@ public class TransactionManagerController {
 
         else {
             messageArea.setText(accountString + "is not in database.");
+            return;
         }
 
         messageArea.setText(accountString + "Deposit - balance updated.");
-        //
-        //will add exception handling later
     }
 
     @FXML
