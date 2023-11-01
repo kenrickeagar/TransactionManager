@@ -487,7 +487,57 @@ public class TransactionManagerController {
     private void readFile(Scanner scanner) {
         String message = "";
         while(scanner.hasNextLine()) {
-            message += scanner.nextLine() + "\n";
+            String accountString = scanner.nextLine();
+            // prevent blank next line from being added
+            if (accountString.length() <= 1) {
+                break;
+            }
+            String[] accountAttributes = accountString.split(",");
+
+            // will create separate method to do all this later
+            String accountType = accountAttributes[0];
+            String fname = accountAttributes[1];
+            String lname = accountAttributes[2];
+            String[] date = accountAttributes[3].split("/");
+            int month = Integer.parseInt(date[0]);
+            int day = Integer.parseInt(date[1]);
+            int year = Integer.parseInt(date[2]);
+            double balance = Double.parseDouble(accountAttributes[4]);
+
+            Date dob = new Date(month, day, year);
+            Profile holder = new Profile(fname, lname, dob);
+
+            Account account = new Checking(holder, balance);
+            if (accountType.equals("CC")) {
+                int campusCode = Integer.parseInt(accountAttributes[5]);
+                if (campusCode == 0) {
+                    account = new CollegeChecking(holder, balance, Campus.NEW_BRUNSWICK);
+                }
+                if (campusCode == 1) {
+                    account = new CollegeChecking(holder, balance, Campus.NEWARK);
+                }
+                if (campusCode == 2){
+                    account = new CollegeChecking(holder, balance, Campus.CAMDEN);
+                }
+            }
+            if (accountType.equals("S")) {
+                boolean isLoyal = false;
+                if (Integer.parseInt(accountAttributes[5]) == 1) {
+                    isLoyal = true;
+                }
+                account = new Savings(holder, balance, isLoyal);
+            }
+            if (accountType.equals("MM")) {
+                account = new MoneyMarket(holder, balance, 0);
+            }
+
+
+            String returnString = fname + " " + lname + " " + dob + " " + "(" + account.accountType() + ")";
+            Boolean opened = database.open(account);
+            if (!opened) {
+                message += returnString + " already exists in database";
+            }
+
         }
         messageArea.setText(message);
     }
