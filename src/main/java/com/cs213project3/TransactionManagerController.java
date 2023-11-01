@@ -2,8 +2,12 @@ package com.cs213project3;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.Node;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.scene.control.Alert.AlertType;
 import javafx.event.ActionEvent;
@@ -24,7 +28,8 @@ public class TransactionManagerController {
     private RadioButton checkingButton,savingsButton,mmButton,ccButton,nbButton,camdenButton,newarkButton, checkingButton2,savingsButton2,mmButton2,ccButton2;
     @FXML
     private CheckBox loyalBox;
-    @FXML private TextArea messageArea;
+    @FXML
+    private TextArea messageArea;
     private AccountDatabase database = new AccountDatabase();
 
 
@@ -479,9 +484,31 @@ public class TransactionManagerController {
         }
     }
 
+    private void readFile(Scanner scanner) {
+        String message = "";
+        while(scanner.hasNextLine()) {
+            message += scanner.nextLine() + "\n";
+        }
+        messageArea.setText(message);
+    }
+
     @FXML
-    void loadFromFileButton(ActionEvent event){
+    void loadFromFileButton(ActionEvent event) throws FileNotFoundException {
     //method to process commands from text file (basically shove the entire original transaction manager stuff in here)
+        // get stage object from ActionEvent
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+
+        // create file chooser in scene window
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("File Chooser");
+
+        ExtensionFilter ex1 = new ExtensionFilter("Text Files", "*.txt");
+        fileChooser.getExtensionFilters().add(ex1);
+        File selectedFile = fileChooser.showOpenDialog(stage);
+
+        Scanner scanner = new Scanner(selectedFile);
+        readFile(scanner);
     }
     @FXML
     protected void onHelloButtonClick() {
