@@ -101,7 +101,7 @@ public class TransactionManagerController {
 
     }
     @FXML
-    private String openExceptionFinder(ActionEvent event){ //true = for open/close false = for withdrawal/deposit (needed because one requires campus specified and other does not)
+    private String openExceptionFinder(ActionEvent event){
         String exception = "";
         /*if(firstNameText.getText().isEmpty()){
             exception = "Missing First Name\n";
@@ -544,7 +544,6 @@ public class TransactionManagerController {
 
     @FXML
     void loadFromFileButton(ActionEvent event) throws FileNotFoundException {
-    //method to process commands from text file (basically shove the entire original transaction manager stuff in here)
         // get stage object from ActionEvent
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
@@ -556,6 +555,11 @@ public class TransactionManagerController {
         ExtensionFilter ex1 = new ExtensionFilter("Text Files", "*.txt");
         fileChooser.getExtensionFilters().add(ex1);
         File selectedFile = fileChooser.showOpenDialog(stage);
+
+        if(selectedFile == null){ //if somebody just randomly closes file explorer without choosing a file
+            messageArea.setText("No File Selected.");
+            return;
+        }
 
         Scanner scanner = new Scanner(selectedFile);
         readFile(scanner);
