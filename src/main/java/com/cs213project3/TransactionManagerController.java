@@ -32,8 +32,11 @@ public class TransactionManagerController {
     private TextArea messageArea;
     private AccountDatabase database = new AccountDatabase();
 
-
-
+    /**
+     * Disables campus buttons if toggle is false.
+     * @param event ActionEvent
+     * @param toggle boolean to set toggle
+     */
     @FXML
     void ToggleAllCampusButtons(ActionEvent event, boolean toggle){
     if(!toggle) { //toggle = true enable them
@@ -47,6 +50,11 @@ public class TransactionManagerController {
     camdenButton.setDisable(false);
 
 }
+
+    /**
+     * Disables tertiary campus or loyal buttons dependent on account type.
+     * @param event ActionEvent
+     */
     @FXML
     void disableAccountButtons(ActionEvent event){
         if(checkingButton.isSelected()){
@@ -67,6 +75,11 @@ public class TransactionManagerController {
         }
     }
 
+    /**
+     * Check if an account button is selected.
+     * @param event ActionEvent
+     * @return false if an account button is not selected, true otherwise.
+     */
     @FXML
     private boolean accountSelected(ActionEvent event){
         if(!mmButton.isSelected() && !ccButton.isSelected()){
@@ -76,6 +89,12 @@ public class TransactionManagerController {
         }
         return true;
     }
+
+    /**
+     * Check if campus is selected.
+     * @param event ActionEvent
+     * @return false if no campus buttons are selected, true otherwise.
+     */
     @FXML
     private boolean campusSelected(ActionEvent event){
         if(!newarkButton.isSelected() && !camdenButton.isSelected() && !nbButton.isSelected()){
@@ -84,6 +103,11 @@ public class TransactionManagerController {
         return true;
     }
 
+    /**
+     * Check if string contains special non letter characters.
+     * @param input String to be read
+     * @return true if characters are outside of range, false otherwise.
+     */
     private boolean containsSpecialChars(String input){
         int capitalLowerBound = 65; // based off ascii capital letters have val of 65-90
         int capitalUpperBound = 90;
@@ -100,6 +124,8 @@ public class TransactionManagerController {
         return false;
 
     }
+
+
     @FXML
     private String openExceptionFinder(ActionEvent event){
         String exception = "";
