@@ -483,28 +483,90 @@ public class TransactionManagerController {
             messageArea.setText(display);
         }
     }
+    private boolean validCommand(String input){
+        String[] validCommands = {"MM","S","C","CC"};
+        for(String command : validCommands){
+            if(input.equals(command)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean validCode(String input1, String command){
+
+        try{
+            int test = Integer.parseInt(input1);
+        } catch(NumberFormatException e){
+            return false;
+        }
+        int x = Integer.parseInt(input1);
+        if(command.equals("S") && (x != 1 && x != 0) ){
+            return false;
+        }
+        if(command.equals("CC") && (x != 1 && x != 0 && x != 2) ){
+            return false;
+        }
+        return true;
+    }
+    private boolean validInteger(String[] integers){
+        for(String i : integers){
+            try{
+                int x = Integer.parseInt(i);
+            }
+            catch(NumberFormatException e){
+                return false;
+            }
+        }
+        return true;
+    }
+    private boolean validTextLine(String[] line){
+        if(line.length > 6 || line.length <5){
+            return false;
+        }
+        String command = line[0];
+        if(!validCommand(command)) {return false;}
+
+        String fname = line[1], lname = line[2];
+        if(containsSpecialChars(fname) || containsSpecialChars(lname)){return false;}
+        String[] date = line[3].split("/");
+
+        if(date.length != 3 || !validInteger(date)){return false;}
+        try{
+            double balance = Double.parseDouble(line[4]);
+        } catch(NumberFormatException e){
+            return false;
+        }
+        if(line.length== 6){
+            if(!validCode(line[5],command)){
+                return false;
+            }
+        }
+        return true;
+   }
 
     private void readFile(Scanner scanner) {
+        int counter = 1; // counter to indicate what line in text file is not correct format
         String message = "";
         while(scanner.hasNextLine()) {
             String accountString = scanner.nextLine();
             // prevent blank next line from being added
             if (accountString.length() <= 1) {
-                break;
+                continue; //changed from break to continue if for whatever theres a reason theres a gap between two command lines it will just move on to the next iteration
             }
             String[] accountAttributes = accountString.split(",");
-
+            if(!validTextLine(accountAttributes)){ //if its not in the correct format throw exception and indicate the line
+                messageArea.setText("Please Check Text File Formatting On Line: " + counter);
+                return;
+            }
             // will create separate method to do all this later
             String accountType = accountAttributes[0];
             String fname = accountAttributes[1];
             String lname = accountAttributes[2];
-            String[] date = accountAttributes[3].split("/");
-            int month = Integer.parseInt(date[0]);
-            int day = Integer.parseInt(date[1]);
-            int year = Integer.parseInt(date[2]);
+            Date dob = new Date(accountAttributes[3]);
             double balance = Double.parseDouble(accountAttributes[4]);
 
-            Date dob = new Date(month, day, year);
+
             Profile holder = new Profile(fname, lname, dob);
 
             Account account = new Checking(holder, balance);
@@ -535,9 +597,11 @@ public class TransactionManagerController {
             String returnString = fname + " " + lname + " " + dob + " " + "(" + account.accountType() + ")";
             Boolean opened = database.open(account);
             if (!opened) {
-                message += returnString + " already exists in database";
+                message += returnString + " already exists in database \n";
+            } else{
+                message+= returnString + "Opened.\n";
             }
-
+            counter++;
         }
         messageArea.setText(message);
     }
