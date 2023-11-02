@@ -76,7 +76,7 @@ public class TransactionManagerController {
     }
 
     /**
-     * Check if an account button is selected.
+     * Check if an account button is selected for Open/Close.
      * @param event ActionEvent
      * @return false if an account button is not selected, true otherwise.
      */
@@ -84,6 +84,21 @@ public class TransactionManagerController {
     private boolean accountSelected(ActionEvent event){
         if(!mmButton.isSelected() && !ccButton.isSelected()){
             if(!checkingButton.isSelected() && !savingsButton.isSelected()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Check if an account button is selected for Deposit/Withdrawal.
+     * @param event ActionEvent
+     * @return false if an account button is not selected, true otherwise.
+     */
+    @FXML
+    private boolean accountSelected2(ActionEvent event) {
+        if(!mmButton2.isSelected() && !ccButton2.isSelected()){
+            if(!checkingButton2.isSelected() && !savingsButton2.isSelected()){
                 return false;
             }
         }
@@ -133,36 +148,9 @@ public class TransactionManagerController {
     @FXML
     private String openExceptionFinder(ActionEvent event){
         String exception = "";
-        /*if(firstNameText.getText().isEmpty()){
-            exception = "Missing First Name\n";
-        }
-        if(lastNameText.getText().isEmpty()){
-            exception+= "Missing Last Name\n";
-        }
-        if(containsSpecialChars(firstNameText.getText()) && !firstNameText.getText().isEmpty()){
-            exception+= "First Name Cannot Contain Special Characters Or Spaces\n";
-        }
-        if(containsSpecialChars(lastNameText.getText()) && !lastNameText.getText().isEmpty()){
-            exception+= "Last Name Cannot Contain Special Characters Or Spaces\n";
-        }
-        if(datepicker.getValue()==null){
-            exception += "Missing Date of Birth\n";
-        }
-        if(amountText.getText().isEmpty()){
-            exception+= "Missing Amount\n";
-        }
-        if(!accountSelected(event)){
-            exception += "No Account Type Selected\n";
-        }*/
         if(!campusSelected(event) && ccButton.isSelected()){
             exception+= "No Campus Selected\n";
         }
-        /*try{
-            double amount = Double.parseDouble(amountText.getText());
-        }
-        catch(NumberFormatException e){
-            exception+= "Invalid Amount Type\n";
-        }*/
         double amount = Double.parseDouble(amountText.getText());
         if (amount < 2000 && mmButton.isSelected()){
             exception+= "Minimum of $2000 to open a Money Market account.\n";
@@ -182,9 +170,25 @@ public class TransactionManagerController {
     private String depositExceptionFinder(ActionEvent event) {
         String exception = "";
 
-        double amount = Double.parseDouble(amountText.getText());
+        double amount = Double.parseDouble(amountText2.getText());
         if (amount <= 0) {
             exception += "Deposit - amount cannot be 0 or negative.\n";
+        }
+        return exception;
+    }
+
+    /**
+     * Check for exceptions when withdrawing from an account.
+     * @param event ActionEvent
+     * @return String error message
+     */
+    @FXML
+    private String withdrawExceptionFinder(ActionEvent event) {
+        String exception = "";
+
+        double amount = Double.parseDouble(amountText2.getText());
+        if (amount <= 0) {
+            exception += "Withdraw - amount cannot be 0 or negative.\n";
         }
         return exception;
     }
@@ -232,6 +236,7 @@ public class TransactionManagerController {
      * @param event Action Event.
      * @return String error message
      */
+    @FXML
     private String textExceptionFinder2(ActionEvent event) {
         String exception = "";
         if(firstNameText2.getText().isEmpty()){
@@ -252,11 +257,12 @@ public class TransactionManagerController {
         if(amountText2.getText().isEmpty()){
             exception+= "Missing Amount\n";
         }
-        if(!accountSelected(event)){
+        if(!accountSelected2(event)){
             exception += "No Account Type Selected\n";
         }
         try{
             double amount = Double.parseDouble(amountText2.getText());
+            System.out.println(amount);
         }
         catch(NumberFormatException e){
             exception+= "Invalid Amount Type\n";
@@ -452,6 +458,16 @@ public class TransactionManagerController {
      */
     @FXML
     void withdrawalButton(ActionEvent event){
+        String exceptionA = textExceptionFinder2(event);
+        if(!exceptionA.equals("")){
+            messageArea.setText(exceptionA);
+            return;
+        }
+        String exceptionB = withdrawExceptionFinder(event);
+        if(!exceptionB.equals("")){
+            messageArea.setText(exceptionB);
+            return;
+        }
 
         String fname = firstNameText2.getText(), lname = lastNameText2.getText();
         String[] dateinfo = datepicker2.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).split("-");
@@ -460,13 +476,11 @@ public class TransactionManagerController {
         String dateS = dob.toString();
         Profile holder = new Profile(fname,lname,dob);
         double withdrawalAmount = Double.parseDouble(amountText2.getText());
-
         Account newAcc = makeAccount2(holder,0);
         String accountType = newAcc.accountType();
-
         String accountString = fname + " " + lname + " " + dob + "(" + accountType + ") ";
         if(!database.contains(newAcc)){
-            messageArea.setText(accountString + " " + "is not in the database.");
+            messageArea.setText(accountString + " is not in the database.");
             return;
         }
         double currentBalance = database.getAccountBalance(newAcc);
