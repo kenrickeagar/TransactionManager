@@ -125,7 +125,11 @@ public class TransactionManagerController {
 
     }
 
-
+    /**
+     * Check for exceptions when opening account.
+     * @param event ActionEvent
+     * @return String error message
+     */
     @FXML
     private String openExceptionFinder(ActionEvent event){
         String exception = "";
@@ -169,6 +173,11 @@ public class TransactionManagerController {
         return exception;
     }
 
+    /**
+     * Check for exceptions when depositing into an account.
+     * @param event ActionEvent
+     * @return String error message
+     */
     @FXML
     private String depositExceptionFinder(ActionEvent event) {
         String exception = "";
@@ -180,6 +189,11 @@ public class TransactionManagerController {
         return exception;
     }
 
+    /**
+     * Check for exceptions in UI Open/Close tab text.
+     * @param event ActionEvent.
+     * @return String error message
+     */
     @FXML
     private String textExceptionFinder(ActionEvent event) {
         String exception = "";
@@ -208,11 +222,16 @@ public class TransactionManagerController {
             double amount = Double.parseDouble(amountText.getText());
         }
         catch(NumberFormatException e){
-            exception+= "Invalid Amount Type\n";
+            exception+= "Not a valid amount.\n";
         }
         return exception;
     }
 
+    /**
+     * Check for exceptions in UI Deposit/Withdrawal tab text.
+     * @param event Action Event.
+     * @return String error message
+     */
     private String textExceptionFinder2(ActionEvent event) {
         String exception = "";
         if(firstNameText2.getText().isEmpty()){
@@ -244,6 +263,13 @@ public class TransactionManagerController {
         }
         return exception;
     }
+
+    /**
+     * Make a placeholder account given a Profile and balance.
+     * @param holder Profile for account
+     * @param balance double amount of account balance
+     * @return placeholder Account
+     */
     @FXML
     private Account makeAccount(Profile holder, double balance){
 
@@ -268,10 +294,10 @@ public class TransactionManagerController {
     }
 
     /**
-     * make accounts for deposit and withdrawals
-     * @param holder
-     * @param balance
-     * @return
+     * make accounts for deposit and withdrawals.
+     * @param holder Profile for account
+     * @param balance double amount of account balance
+     * @return placeholder Account
      */
     @FXML
     private Account makeAccount2(Profile holder, double balance){
@@ -290,6 +316,10 @@ public class TransactionManagerController {
         return new CollegeChecking(holder,balance, Campus.CAMDEN);
     }
 
+    /**
+     * Handle open account button functionality.
+     * @param event ActionEvent
+     */
     @FXML
     void openAccountButton(ActionEvent event){
 
@@ -336,6 +366,10 @@ public class TransactionManagerController {
         messageArea.setText(returnString + " already exists in database");
     }
 
+    /**
+     * Handle close account button functionality.
+     * @param event ActionEvent
+     */
     @FXML
     void closeAccountButton(ActionEvent event){
 
@@ -369,6 +403,10 @@ public class TransactionManagerController {
 
     }
 
+    /**
+     * Handle deposit account button functionality.
+     * @param event ActionEvent
+     */
     @FXML
     void depositButton(ActionEvent event){
         String exceptionA = textExceptionFinder2(event);
@@ -408,6 +446,10 @@ public class TransactionManagerController {
         messageArea.setText(accountString + "Deposit - balance updated.");
     }
 
+    /**
+     * Handle withdrawal account button functionality.
+     * @param event ActionEvent
+     */
     @FXML
     void withdrawalButton(ActionEvent event){
 
@@ -442,12 +484,21 @@ public class TransactionManagerController {
         messageArea.setText(accountString + " Withdraw - balance updated.");
     }
 
+    /**
+     * Round a double to second decimal.
+     * @param amount double dollar amount
+     * @return rounded double dollar amount
+     */
     private double roundDouble(double amount) {
         double scale = Math.pow(10, 2);
         amount = Math.round(amount * scale) / scale;
         return amount;
     }
 
+    /**
+     * Handle print fees button functionality.
+     * @param event ActionEvent
+     */
     @FXML
     void printFeesButton(ActionEvent event){
         //display sorted print fees
@@ -474,6 +525,10 @@ public class TransactionManagerController {
         }
     }
 
+    /**
+     * Handle print accounts in sorted order button functionality.
+     * @param event ActionEvent
+     */
     @FXML
     void printSortedButton(ActionEvent event){
         //display sorted by accounts to textarea
@@ -492,6 +547,10 @@ public class TransactionManagerController {
         }
     }
 
+    /**
+     * Handle print accounts with updated balances in sorted order button functionality.
+     * @param event ActionEvent
+     */
     @FXML
     void printUpdatedBalanceButton(ActionEvent event){
         //display updated balance to textArea
@@ -509,6 +568,12 @@ public class TransactionManagerController {
             messageArea.setText(display);
         }
     }
+
+    /**
+     * Test if command received is valid.
+     * @param input String command input
+     * @return true if input is in list of valid commands, false otherwise
+     */
     private boolean validCommand(String input){
         String[] validCommands = {"MM","S","C","CC"};
         for(String command : validCommands){
@@ -519,6 +584,12 @@ public class TransactionManagerController {
         return false;
     }
 
+    /**
+     * Test if campus or loyal code is valid.
+     * @param input1 String code input
+     * @param command String command input
+     * @return true if code is within acceptable values, false otherwise
+     */
     private boolean validCode(String input1, String command){
 
         try{
@@ -535,6 +606,12 @@ public class TransactionManagerController {
         }
         return true;
     }
+
+    /**
+     * Test if integers are valid.
+     * @param integers String array of integers
+     * @return false if NumberFormatException, true otherwise
+     */
     private boolean validInteger(String[] integers){
         for(String i : integers){
             try{
@@ -546,6 +623,12 @@ public class TransactionManagerController {
         }
         return true;
     }
+
+    /**
+     * Test if String line is valid.
+     * @param line String array of lines
+     * @return true if String meats parameters are valid account string, false otherwise.
+     */
     private boolean validTextLine(String[] line){
         if(line.length > 6 || line.length <5){
             return false;
@@ -569,8 +652,53 @@ public class TransactionManagerController {
             }
         }
         return true;
-   }
+    }
 
+    /**
+     * Create an Account based on String attributes from file
+     * @param accountAttributes String array of account attributes.
+     * @return Account created from file.
+     */
+    private Account createAccount_FromFile(String[] accountAttributes) {
+        String accountType = accountAttributes[0];
+        String fname = accountAttributes[1];
+        String lname = accountAttributes[2];
+        Date dob = new Date(accountAttributes[3]);
+        double balance = Double.parseDouble(accountAttributes[4]);
+
+
+        Profile holder = new Profile(fname, lname, dob);
+
+        Account account = new Checking(holder, balance);
+        if (accountType.equals("CC")) {
+            int campusCode = Integer.parseInt(accountAttributes[5]);
+            if (campusCode == 0) {
+                account = new CollegeChecking(holder, balance, Campus.NEW_BRUNSWICK);
+            }
+            if (campusCode == 1) {
+                account = new CollegeChecking(holder, balance, Campus.NEWARK);
+            }
+            if (campusCode == 2){
+                account = new CollegeChecking(holder, balance, Campus.CAMDEN);
+            }
+        }
+        if (accountType.equals("S")) {
+            boolean isLoyal = false;
+            if (Integer.parseInt(accountAttributes[5]) == 1) {
+                isLoyal = true;
+            }
+            account = new Savings(holder, balance, isLoyal);
+        }
+        if (accountType.equals("MM")) {
+            account = new MoneyMarket(holder, balance, 0);
+        }
+        return account;
+    }
+
+    /**
+     * Read the file from the Scanner object.
+     * @param scanner Scanner object to be read from
+     */
     private void readFile(Scanner scanner) {
         int counter = 1; // counter to indicate what line in text file is not correct format
         String message = "";
@@ -578,60 +706,36 @@ public class TransactionManagerController {
             String accountString = scanner.nextLine();
             // prevent blank next line from being added
             if (accountString.length() <= 1) {
-                continue; //changed from break to continue if for whatever theres a reason theres a gap between two command lines it will just move on to the next iteration
+                continue; //continue if there's a reason there's a gap between two command lines it will just move on to the next iteration
             }
             String[] accountAttributes = accountString.split(",");
-            if(!validTextLine(accountAttributes)){ //if its not in the correct format throw exception and indicate the line
+            if(!validTextLine(accountAttributes)){ //if it's not in the correct format throw exception and indicate the line
                 messageArea.setText("Please Check Text File Formatting On Line: " + counter);
                 return;
             }
             // will create separate method to do all this later
-            String accountType = accountAttributes[0];
+            Account account = createAccount_FromFile(accountAttributes);
+
             String fname = accountAttributes[1];
             String lname = accountAttributes[2];
-            Date dob = new Date(accountAttributes[3]);
-            double balance = Double.parseDouble(accountAttributes[4]);
-
-
-            Profile holder = new Profile(fname, lname, dob);
-
-            Account account = new Checking(holder, balance);
-            if (accountType.equals("CC")) {
-                int campusCode = Integer.parseInt(accountAttributes[5]);
-                if (campusCode == 0) {
-                    account = new CollegeChecking(holder, balance, Campus.NEW_BRUNSWICK);
-                }
-                if (campusCode == 1) {
-                    account = new CollegeChecking(holder, balance, Campus.NEWARK);
-                }
-                if (campusCode == 2){
-                    account = new CollegeChecking(holder, balance, Campus.CAMDEN);
-                }
-            }
-            if (accountType.equals("S")) {
-                boolean isLoyal = false;
-                if (Integer.parseInt(accountAttributes[5]) == 1) {
-                    isLoyal = true;
-                }
-                account = new Savings(holder, balance, isLoyal);
-            }
-            if (accountType.equals("MM")) {
-                account = new MoneyMarket(holder, balance, 0);
-            }
-
-
+            String dob = accountAttributes[3];
             String returnString = fname + " " + lname + " " + dob + " " + "(" + account.accountType() + ")";
             Boolean opened = database.open(account);
             if (!opened) {
                 message += returnString + " already exists in database \n";
             } else{
-                message+= returnString + "Opened.\n";
+                message += returnString + " Opened.\n";
             }
             counter++;
         }
         messageArea.setText(message);
     }
 
+    /**
+     * Create file chooser and get file selected.
+     * @param event ActionEvent
+     * @throws FileNotFoundException exception thrown
+     */
     @FXML
     void loadFromFileButton(ActionEvent event) throws FileNotFoundException {
         // get stage object from ActionEvent
@@ -653,9 +757,5 @@ public class TransactionManagerController {
 
         Scanner scanner = new Scanner(selectedFile);
         readFile(scanner);
-    }
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
     }
 }

@@ -129,6 +129,9 @@ public class AccountDatabase {
         if (this.contains(account)) {
             return false;
         }
+        if (this.containsProfile(account)) {
+            return false;
+        }
         if (!this.hasSpace()) {
             this.grow();
         }
