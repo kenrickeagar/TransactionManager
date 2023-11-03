@@ -253,7 +253,9 @@ public class AccountDatabase {
         }
         System.out.println("* end of list.");
     }
-
+    /**
+     * Sort Accounts.
+     */
     public void sortAccounts(){
         if (this.numAcct > 1) { // Insertion sort from: https://www.geeksforgeeks.org/insertion-sort/
             for (int i = 1; i < this.numAcct; ++i) {
@@ -320,7 +322,9 @@ public class AccountDatabase {
 
         System.out.println("* end of list.");
     }
-
+    /**
+     * Sort the accounts in order with respect to fees and interests.
+     */
     public void sortByUpdateBalances(){
         for (int i = 0; i < this.numAcct; i++) {
             Account account = this.accounts[i];
@@ -331,7 +335,11 @@ public class AccountDatabase {
         }
     }
 
-
+    /**
+     * Get Account object from database from index
+     * @param index, integer representing index in database
+     * @return Account object from database
+     */
     public Account getAccount(int index){
         return accounts[index];
     }
