@@ -168,7 +168,7 @@
                               </Label>
                               <TextField fx:id="firstNameText2" GridPane.columnIndex="1" />
                               <TextField fx:id="lastNameText2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <DatePicker fx:id="datepicker2" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <DatePicker fx:id="datepicker2" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <GridPane GridPane.columnIndex="1" GridPane.rowIndex="3">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
