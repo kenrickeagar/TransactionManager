@@ -47,7 +47,7 @@ public class Savings extends Account {
 
     /**
      * Get the MONTHLY_FEE for a manager.Savings account.
-     * @return MONTHLY_FEE constant if balance < 500, 0.0 otherwise.
+     * @return MONTHLY_FEE constant if balance less than 500, 0.0 otherwise.
      */
     @Override
     public double monthlyFee(){

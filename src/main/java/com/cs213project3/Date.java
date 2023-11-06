@@ -152,7 +152,7 @@ public class Date implements Comparable<Date> {
     /**
      * Compare two date objects based on year, month and day.
      * @param date the second manager.Date object in the comparison.
-     * @return 1 if date1 > date2, -1 if date1 < date2, and 0 otherwise.
+     * @return 1 if date1 greater than date2, -1 if date1 less than date2, and 0 otherwise.
      */
     @Override
     public int compareTo(Date date) {

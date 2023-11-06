@@ -16,7 +16,10 @@ import java.lang.module.FindException;
 import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 
-//assuming database has to be created in this file
+/**
+ * Connect the GUI to the Account Database.
+ * @author Kenrick Eagar, Zachary Derish
+ */
 public class TransactionManagerController {
     @FXML
     private Label welcomeText;
