@@ -8,80 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a7463bff-b604-41bf-9a61-5b4f2e53bef0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/test-specifications/~WRL0003.tmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test-specifications/~$st-specifications.docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/Date.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cs213project3/Date.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/Savings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cs213project3/Savings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/TransactionManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cs213project3/TransactionManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/allclasses-index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/allpackages-index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/constant-values.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/copy.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/element-list" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/help-doc.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index-files/index-1.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index-files/index-10.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index-files/index-11.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index-files/index-12.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index-files/index-13.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index-files/index-14.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index-files/index-15.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index-files/index-16.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index-files/index-17.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index-files/index-18.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index-files/index-19.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index-files/index-2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index-files/index-20.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index-files/index-21.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index-files/index-22.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index-files/index-23.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index-files/index-3.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index-files/index-4.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index-files/index-5.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index-files/index-6.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index-files/index-7.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index-files/index-8.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index-files/index-9.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/legal/COPYRIGHT" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/legal/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/legal/jquery.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/legal/jqueryUI.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/manager/Account.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/manager/AccountDatabase.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/manager/AccountDatabaseTest.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/manager/Campus.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/manager/Checking.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/manager/CollegeChecking.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/manager/Date.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/manager/DateTest.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/manager/MoneyMarket.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/manager/Profile.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/manager/RunProject2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/manager/Savings.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/manager/TransactionManager.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/manager/package-summary.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/manager/package-tree.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/member-search-index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/module-search-index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/overview-tree.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/package-search-index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/resources/glass.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/resources/x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/script-dir/jquery-3.6.1.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/script-dir/jquery-ui.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/script-dir/jquery-ui.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/script.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/search-page.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/search.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/search.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/stylesheet.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/tag-search-index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs213project3/doc/type-search-index.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/test-specifications/test-specifications.docx" beforeDir="false" afterPath="$PROJECT_DIR$/test-specifications/test-specifications.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-specifications/~$st-specifications.docx" beforeDir="false" afterPath="$PROJECT_DIR$/test-specifications/~$st-specifications.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-specifications/~WRL0005.tmp" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
